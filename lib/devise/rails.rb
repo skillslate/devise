@@ -29,7 +29,7 @@ module Devise
     end
 
     initializer "devise.omniauth" do |app|
-      Devise.omniauth_configs.each do |provider, config|
+      Devise.omniauth_configs.each do |config|
         app.middleware.use config.strategy_class, *config.args do |strategy|
           config.strategy = strategy
         end

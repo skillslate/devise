@@ -329,12 +329,6 @@ module ActionDispatch::Routing
         path, @scope[:path] = @scope[:path], nil
         path_prefix = "/#{mapping.path}/auth".squeeze("/")
 
-        if ::OmniAuth.config.path_prefix && ::OmniAuth.config.path_prefix != path_prefix
-          warn "[DEVISE] You can only add :omniauthable behavior to one model."
-        else
-          ::OmniAuth.config.path_prefix = path_prefix
-        end
-
         match "#{path_prefix}/:action/callback", :action => Regexp.union(mapping.to.omniauth_providers.map(&:to_s)),
           :to => controllers[:omniauth_callbacks], :as => :omniauth_callback
       ensure

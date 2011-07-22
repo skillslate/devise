@@ -229,7 +229,7 @@ module Devise
 
   # Omniauth configurations.
   mattr_reader :omniauth_configs
-  @@omniauth_configs = ActiveSupport::OrderedHash.new
+  @@omniauth_configs = []
 
   # Define a set of modules that are called when a mapping is added.
   mattr_reader :helpers
@@ -271,7 +271,7 @@ module Devise
   end
 
   def self.omniauth_providers
-    omniauth_configs.keys
+    omniauth_configs.map(&:provider)
   end
 
   # Get the mailer class from the mailer reference object.
@@ -378,7 +378,7 @@ module Devise
   def self.omniauth(provider, *args)
     @@helpers << Devise::OmniAuth::UrlHelpers
     config = Devise::OmniAuth::Config.new(provider, args)
-    @@omniauth_configs[config.strategy_name.to_sym] = config
+    @@omniauth_configs << config
   end
 
   # Include helpers in the given scope to AC and AV.

@@ -2,7 +2,7 @@ module Devise
   module OmniAuth
     class Config
       attr_accessor :strategy
-      attr_reader :args
+      attr_reader :args, :provider
 
       def initialize(provider, args)
         @provider = provider
